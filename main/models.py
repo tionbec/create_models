@@ -4,40 +4,47 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
-class Profile:
+class Profile(models.Model):
     name = models.CharField(max_length=100)
-    photo = models.ImageField()
-    user = models.ForeignKey()
+    photo = models.ImageField(null=True, blank=True, upload_to="images/profile/")
+    # user = models.OneToOneField()
+
+    def __str__(self):
+        return self.name
 
 
-class User:
+
+class User(models.Model):
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
-    course = models.ManyToOneRel()
+    #course = models.ManyToOneRel()
 
 
-class Course:
+class Course(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     preview_video = models.FileField()
 
 
-class Progress:
-    user = models.ForeignKey()
-    course = models.ForeignKey()
-    opened_lessons = models.ManyToOneRel()
-    passed_lessons = models.ManyToOneRel()
+class Progress(models.Model):
+    #user = models.ForeignKey()
+    #course = models.ForeignKey()
+    #opened_lessons = models.ManyToOneRel()
+    #passed_lessons = models.ManyToOneRel()
+    percent = models.IntegerField()
 
 
-class CheckHomework:
-    user = models.ForeignKey()
-    lesson = models.ForeignKey()
+class CheckHomework(models.Model):
+    # user = models.ForeignKey()
+    # lesson = models.ForeignKey()
+    doneHW = models.BooleanField()
 
 
-class Lesson:
+class Lesson(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
     body = models.TextField()
     video = models.FileField()
-    course = models.ForeignKey()
+    # course = models.ForeignKey()
+
